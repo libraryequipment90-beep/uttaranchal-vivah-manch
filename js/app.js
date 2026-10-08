@@ -102,14 +102,20 @@ function profileCard(p) {
 }
 
 function storyCard(s, extraClass) {
-  const bg = s.photo ? ` style="${photoStyle(s.photo)}height:148px"` : "";
+  const loc = extraClass ? s.place : `${s.place} · ${t("uk")}`;
   const quote = s.quote ? `<p class="story-quote">${s.quote}</p>` : "";
+  const photo = s.photo
+    ? `<div class="story-photo" style="background-image:url('${s.photo}')"></div>`
+    : "";
   return `
     <article class="story-card">
-      ${extraClass || s.photo ? `<div class="profile-photo"${bg}></div>` : ""}
+      ${photo}
       ${quote}
       <h3>${s.names}</h3>
-      <p class="muted">${s.place}${extraClass ? "" : " · " + t("uk")}</p>
+      <p class="story-loc">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 21s-7-5.4-7-11a7 7 0 1 1 14 0c0 5.6-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        <span>${loc}</span>
+      </p>
     </article>`;
 }
 
@@ -121,6 +127,9 @@ function popularRow(p) {
         <b>${p.name}</b>
         <span>${p.age} ${t("years")} | ${communityLabel(p.community)} | ${p.city}</span>
       </div>
+      <span class="pop-heart" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 5.6-7 10-7 10z"/></svg>
+      </span>
     </a>`;
 }
 

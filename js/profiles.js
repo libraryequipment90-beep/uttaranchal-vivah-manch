@@ -14,12 +14,12 @@ const PROFILES = [
 ];
 
 const DEMO_ACCOUNTS = [
-  { id: "UV24120", password: "joshi123" },
-  { id: "UV23881", password: "pant123" },
-  { id: "UV23209", password: "rawat123" }
+  { id: "UV24120", password: "joshi123", membership: "permanent" },
+  { id: "UV23881", password: "pant123", membership: "none" },
+  { id: "UV23209", password: "rawat123", membership: "temp" }
 ].map((a) => {
   const p = PROFILES.find((x) => x.id === a.id);
-  return { ...p, password: a.password };
+  return { ...p, password: a.password, membership: a.membership };
 });
 
 function currentUser() {
@@ -43,6 +43,11 @@ function loginUser(id, password) {
 
 function logoutUser() {
   localStorage.removeItem("uv-user");
+}
+
+function hasPrivateAccess() {
+  const user = currentUser();
+  return !!(user && user.membership && user.membership !== "none");
 }
 
 const STORIES = [
@@ -84,8 +89,8 @@ function filterProfiles(list, filters) {
     if (filters.region && p.region && p.region !== filters.region) return false;
     if (filters.caste && !(p.caste || "").toLowerCase().includes(String(filters.caste).toLowerCase())) return false;
     if (filters.gender && p.gender !== filters.gender) return false;
-    if (filters.city && !(`${p.city} ${p.native} ${p.village} ${p.district} ${p.presentAddress}`).toLowerCase().includes(filters.city.toLowerCase())) return false;
-    if (filters.q && !(p.name + p.id + p.job + p.father + p.mother + p.caste).toLowerCase().includes(filters.q.toLowerCase())) return false;
+    if (filters.city && !(`${p.city}`).toLowerCase().includes(filters.city.toLowerCase())) return false;
+    if (filters.q && !(p.name + p.id + p.job + p.caste).toLowerCase().includes(filters.q.toLowerCase())) return false;
     if (filters.age) {
       const parts = String(filters.age).split("-").map(Number);
       if (parts.length === 2 && (p.age < parts[0] || p.age > parts[1])) return false;

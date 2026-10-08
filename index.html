@@ -6,7 +6,7 @@
   <title data-i18n-title="homeTitle">उत्तरांचल विवाह मंच | गढ़वाली कुमाऊँनी रिश्ते</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Sans:wght@400;600;700&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=26">
+  <link rel="stylesheet" href="css/style.css?v=30">
 </head>
 <body data-page="home">
   <div id="app-header"></div>
@@ -136,26 +136,32 @@
         <p class="muted" data-i18n="whySub">क्योंकि उत्तराखंड के परिवारों का सुख मायने रखता है।</p>
         <div class="why-grid">
           <article class="why-card">
+            <span class="why-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 5.6-7 10-7 10z"/></svg></span>
             <h3 data-i18n="why1">सत्यापित प्रोफाइल</h3>
             <p class="muted" data-i18n="why1s">100% वास्तविक गढ़वाली-कुमाऊँनी परिवार</p>
           </article>
           <article class="why-card">
+            <span class="why-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v6c0 5-3.2 7.8-7 9-3.8-1.2-7-4-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></span>
             <h3 data-i18n="why2">सुरक्षित और निजी</h3>
             <p class="muted" data-i18n="why2s">फ़ोन नंबर लॉगिन के बाद ही खुलते हैं</p>
           </article>
           <article class="why-card">
+            <span class="why-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3"/><circle cx="16" cy="9" r="2.4"/><path d="M3.8 18c.6-3 2.8-4.6 5.2-4.6s4.6 1.6 5.2 4.6"/><path d="M14.2 14.2c1.8-.2 3.6 1 4.2 3.3"/></svg></span>
             <h3 data-i18n="why3">पारिवारिक सहायता</h3>
             <p class="muted" data-i18n="why3s">हर कदम पर अभिभावकों के साथ</p>
           </article>
           <article class="why-card">
+            <span class="why-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7-5.4-7-11a7 7 0 1 1 14 0c0 5.6-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
             <h3 data-i18n="why4">क्षेत्र व जाति</h3>
             <p class="muted" data-i18n="why4s">गढ़वाल, कुमाऊँ, गोत्र और गांव</p>
           </article>
           <article class="why-card">
+            <span class="why-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 15.8 7.2 17.9l.9-5.4L4.2 8.7l5.4-.8L12 3z"/></svg></span>
             <h3 data-i18n="why5">निशुल्क शुरुआत</h3>
             <p class="muted" data-i18n="why5s">6 माह अस्थाई सदस्यता निशुल्क</p>
           </article>
           <article class="why-card">
+            <span class="why-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><circle cx="12" cy="12" r="1.2" fill="currentColor"/><path d="M12 4v2.5M12 17.5V20M4 12h2.5M17.5 12H20"/></svg></span>
             <h3 data-i18n="why6">व्यक्तिगत मैच</h3>
             <p class="muted" data-i18n="why6s">आपकी पसंद के अनुसार सुझाव</p>
           </article>
@@ -171,9 +177,9 @@
   </section>
 
   <div id="app-footer"></div>
-   <script src="js/i18n.js?v=22"></script>
-   <script src="js/profiles.js?v=22"></script>
-   <script src="js/app.js?v=22"></script>
+   <script src="js/i18n.js?v=30"></script>
+   <script src="js/profiles.js?v=30"></script>
+   <script src="js/app.js?v=30"></script>
   <script>
     function renderHome() {
       document.getElementById("homeStories").innerHTML = STORIES.slice(0, 4).map((s) => storyCard(s)).join("");
