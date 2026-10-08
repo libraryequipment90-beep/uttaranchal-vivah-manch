@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n-title="matchTitle">माय मैचेस | उत्तरांचल विवाह मंच</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Sans:wght@400;600;700&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=22">
+</head>
+<body data-page="browse">
+  <div id="app-header"></div>
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumbs" data-i18n="crumbMatch">होम / माय मैचेस</div>
+      <h1 data-i18n="matchH1">आपके सुझाए गए मैच</h1>
+      <p data-i18n="matchLead">लॉगिन के बाद समुदाय, आयु और पैतृक क्षेत्र के आधार पर मैच दिखते हैं। फ़ोन नंबर सदस्यता सीमा के अनुसार खुलते हैं।</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="notice" id="matchNote" data-i18n="matchNote">डेमो खाता: इस माह 5 में से 2 नंबर बचे हैं। स्थाई सदस्यता पर प्रति माह 50 नंबर मिलते हैं।</div>
+      <div class="card-grid" id="matches"></div>
+    </div>
+  </section>
+  <div id="app-footer"></div>
+   <script src="js/i18n.js?v=22"></script>
+   <script src="js/profiles.js?v=22"></script>
+   <script src="js/app.js?v=22"></script>
+  <script>
+    const user = currentUser();
+    if (!user) location.href = "login.html";
+    function renderMatches() {
+      const looking = user ? user.looking : "bride";
+      const rows = PROFILES.filter((p) => p.gender === looking && p.id !== (user && user.id));
+      document.getElementById("matches").innerHTML = rows.map(profileCard).join("");
+    }
+    window.onLangChange = renderMatches;
+    renderMatches();
+  </script>
+</body>
+</html>

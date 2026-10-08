@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n-title="regTitle">प्रोफाइल बनाएं | उत्तरांचल विवाह मंच</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Sans:wght@400;600;700&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=22">
+</head>
+<body data-page="register">
+  <div id="app-header"></div>
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumbs" data-i18n="crumbReg">होम / प्रोफाइल बनाएं</div>
+      <h1 data-i18n="regH1">निशुल्क बायोडाटा दर्ज करें</h1>
+      <p data-i18n="regLead">अभिभावक का फ़ोन नंबर अनिवार्य है। सत्यापन के लिए उसी नंबर पर कॉल होगी।</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container split">
+      <form class="form-card" id="regForm">
+        <h2 data-i18n="biodata">वैवाहिक विवरण</h2>
+        <div class="form-grid" style="margin-top:16px">
+          <div class="field"><label data-i18n="name">नाम</label><input required name="name"></div>
+          <div class="field"><label data-i18n="boyGirl">वर / वधू</label>
+            <select name="gender"><option value="groom" data-i18n="boy">लड़का</option><option value="bride" data-i18n="girl">लड़की</option></select>
+          </div>
+          <div class="field"><label data-i18n="region">क्षेत्र</label>
+            <select name="region">
+              <option value="garhwali" data-i18n="garhwali">गढ़वाली</option>
+              <option value="kumaoni" data-i18n="kumaoni">कुमाऊँनी</option>
+            </select>
+          </div>
+          <div class="field"><label data-i18n="community">समुदाय</label>
+            <select name="community">
+              <option value="brahmin" data-i18n="brahmin">ब्राह्मण</option>
+              <option value="rajput" data-i18n="rajput">राजपूत</option>
+              <option value="other" data-i18n="other">SC / ST / OBC</option>
+            </select>
+          </div>
+          <div class="field"><label data-i18n="surname">जाति / सरनेम</label>
+            <select name="caste" id="casteSelect"></select>
+          </div>
+          <div class="field"><label data-i18n="height">कद</label><input name="height" placeholder="5'6&quot;"></div>
+          <div class="field"><label data-i18n="dob">जन्म तिथि</label><input type="date" name="dob"></div>
+          <div class="field"><label data-i18n="tob">जन्म समय</label><input name="tob" placeholder="10:15 AM"></div>
+          <div class="field"><label data-i18n="pob">जन्म स्थान</label><input name="pob"></div>
+          <div class="field"><label data-i18n="manglik">मांगलिक</label>
+            <select name="manglik">
+              <option data-i18n="noManglik">नहीं</option>
+              <option data-i18n="anshik">आंशिक मंगली</option>
+              <option data-i18n="sapt">सप्त मंगली</option>
+            </select>
+          </div>
+          <div class="field"><label data-i18n="education">शिक्षा</label><input name="edu"></div>
+          <div class="field"><label data-i18n="job">नौकरी</label><input name="job"></div>
+          <div class="field"><label data-i18n="salary">वेतन</label><input name="salary"></div>
+          <div class="field"><label data-i18n="parentPhone">अभिभावक फ़ोन</label><input required name="phone" data-i18n-placeholder="tenDigits" placeholder="10 अंक"></div>
+          <div class="field full"><label data-i18n="addressNow">वर्तमान पता</label><textarea name="address" rows="2"></textarea></div>
+          <div class="field full"><label data-i18n="nativeFull">पैतृक निवास (गांव, पट्टी, जिला)</label><input name="native"></div>
+          <div class="field"><label data-i18n="father">पिता का नाम</label><input name="father"></div>
+          <div class="field"><label data-i18n="fatherJob">पिता का व्यवसाय</label><input name="fatherJob"></div>
+          <div class="field"><label data-i18n="motherCaste">माँ की जाति</label><input name="motherCaste"></div>
+          <div class="field"><label data-i18n="naniDadi">नानी / दादी की जाति</label><input name="nani"></div>
+          <div class="field"><label data-i18n="captcha">8 + 3 =</label><input required name="captcha" data-i18n-placeholder="answer" placeholder="उत्तर"></div>
+          <div class="field"><label data-i18n="sender">भेजने वाले का नाम</label><input name="sender"></div>
+        </div>
+        <p class="muted" style="margin:12px 0" data-i18n="idHint">बायोडाटा के साथ पहचान पत्र व्हाट्सऐप पर भेजें ताकि वेरिफाइड बैज मिल सके।</p>
+        <button class="btn btn-primary" data-i18n="submit">फॉर्म जमा करें</button>
+        <div class="toast" id="toast" data-i18n="thanks">धन्यवाद। हम 12 से 7 बजे के बीच आपसे संपर्क करेंगे।</div>
+      </form>
+      <aside class="info-card">
+        <h3 data-i18n="important">आवश्यक बातें</h3>
+        <ul>
+          <li data-i18n="i1">केवल गढ़वाली-कुमाऊँनी परिवार फॉर्म भरें।</li>
+          <li data-i18n="i2">फर्जी प्रोफाइल रोकने हेतु आईडी प्रूफ चेक होता है।</li>
+          <li data-i18n="i3">सूची में नाम निशुल्क लिखा जाता है।</li>
+          <li data-i18n="i4">व्हाट्सऐप: 9667895367</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+  <div id="app-footer"></div>
+   <script src="js/i18n.js?v=22"></script>
+   <script src="js/profiles.js?v=22"></script>
+   <script src="js/app.js?v=22"></script>
+  <script>
+    if (currentUser()) location.href = "account.html";
+    const form = document.getElementById("regForm");
+    function fillCaste() {
+      const sel = document.getElementById("casteSelect");
+      const names = casteOptions(form.region.value, form.community.value);
+      sel.innerHTML = names.map((n) => `<option>${n}</option>`).join("");
+    }
+    form.region.addEventListener("change", fillCaste);
+    form.community.addEventListener("change", fillCaste);
+    fillCaste();
+    document.getElementById("regForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (e.target.captcha.value.trim() !== "11") {
+        alert(t("captchaErr"));
+        return;
+      }
+      document.getElementById("toast").style.display = "block";
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>

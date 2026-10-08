@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n-title="loginTitle">लॉगिन | उत्तरांचल विवाह मंच</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Sans:wght@400;600;700&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=22">
+</head>
+<body data-page="login">
+  <div id="app-header"></div>
+  <section class="section">
+    <div class="container" style="max-width:560px">
+      <form class="form-card" id="loginForm">
+        <h2 data-i18n="memberLogin">सदस्य लॉगिन</h2>
+        <div class="notice" style="margin-top:14px" data-i18n="loginNote">ऑनलाइन लॉगिन सीमित सदस्यों को दी गई है। आईडी/पासवर्ड के लिए 9667895367 पर कॉल या व्हाट्सऐप करें।</div>
+        <div class="field" style="margin-top:12px"><label>User ID</label><input required name="uid" id="uid" placeholder="UV24120"></div>
+        <div class="field" style="margin-top:12px"><label>Password</label><input required type="password" name="pw" id="pw"></div>
+        <button class="btn btn-dark" style="margin-top:16px;width:100%" data-i18n="doLogin">लॉगिन करें</button>
+        <p class="muted" style="margin-top:14px"><a href="register.html" data-i18n="noBiodata">अभी तक बायोडाटा नहीं भेजा? फॉर्म भरें।</a></p>
+        <div class="toast" id="toast"></div>
+        <div class="info-card" style="margin-top:18px;padding:16px">
+          <h3 data-i18n="demoBox">डेमो खाते</h3>
+          <p class="muted" data-i18n="demoHint">नीचे दिए आईडी से लॉगिन करें</p>
+          <div class="demo-list" id="demoList"></div>
+        </div>
+      </form>
+    </div>
+  </section>
+  <div id="app-footer"></div>
+   <script src="js/i18n.js?v=22"></script>
+   <script src="js/profiles.js?v=22"></script>
+   <script src="js/app.js?v=22"></script>
+  <script>
+    if (currentUser()) location.href = "account.html";
+    function fillDemo(id, pw) {
+      document.getElementById("uid").value = id;
+      document.getElementById("pw").value = pw;
+    }
+    function renderDemos() {
+      document.getElementById("demoList").innerHTML = DEMO_ACCOUNTS.map((a) => `
+        <div class="demo-row">
+          <div style="display:flex;gap:10px;align-items:center">
+            <img src="${a.photo}" alt="${a.name}" style="width:42px;height:42px;border-radius:50%;object-fit:cover">
+            <div><b>${a.id}</b> · ${a.name}<br><span class="muted">${a.password}</span></div>
+          </div>
+          <button type="button" class="btn btn-ghost" onclick="fillDemo('${a.id}','${a.password}')">${t("fillDemo")}</button>
+        </div>`).join("");
+    }
+    window.onLangChange = renderDemos;
+    renderDemos();
+    document.getElementById("loginForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const user = loginUser(e.target.uid.value, e.target.pw.value);
+      const toast = document.getElementById("toast");
+      toast.style.display = "block";
+      if (!user) {
+        toast.className = "toast err";
+        toast.textContent = t("loginFail");
+        return;
+      }
+      toast.className = "toast";
+      toast.textContent = t("loginOk");
+      setTimeout(() => location.href = "my-matches.html", 600);
+    });
+  </script>
+</body>
+</html>

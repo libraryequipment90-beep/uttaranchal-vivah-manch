@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n-title="casteTitle">जातियां | उत्तरांचल विवाह मंच</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Sans:wght@400;600;700&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=22">
+</head>
+<body data-page="castes">
+  <div id="app-header"></div>
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumbs" data-i18n="crumbCaste">होम / जातियां</div>
+      <h1 data-i18n="ukCastes">उत्तराखंड की जातियां</h1>
+      <p data-i18n="casteLead">गढ़वाल और कुमाऊँ की प्रमुख जातियां। सूची से प्रोफाइल खोलें।</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container" id="casteBox"></div>
+  </section>
+  <div id="app-footer"></div>
+  <script src="js/i18n.js?v=22"></script>
+  <script src="js/profiles.js?v=22"></script>
+  <script src="js/app.js?v=22"></script>
+  <script>
+    function casteBlock(region, community) {
+      const names = casteOptions(region, community);
+      return `
+        <div class="caste-block">
+          <h3>${communityLabel(community)}</h3>
+          <div class="caste-chips">
+            ${names.map((n) => `<a class="caste-chip" href="browse.html?community=${community}&caste=${encodeURIComponent(n)}">${n}</a>`).join("")}
+          </div>
+        </div>`;
+    }
+    function renderCastes() {
+      document.getElementById("casteBox").innerHTML = `
+        <p class="muted" style="margin-bottom:22px" data-i18n="casteNote">${t("casteNote")}</p>
+        <div class="caste-region">
+          <h2 data-i18n="garhwali">${t("garhwali")}</h2>
+          ${casteBlock("garhwali", "brahmin")}
+          ${casteBlock("garhwali", "rajput")}
+          ${casteBlock("garhwali", "other")}
+        </div>
+        <div class="caste-region">
+          <h2 data-i18n="kumaoni">${t("kumaoni")}</h2>
+          ${casteBlock("kumaoni", "brahmin")}
+          ${casteBlock("kumaoni", "rajput")}
+          ${casteBlock("kumaoni", "other")}
+        </div>`;
+    }
+    window.onLangChange = renderCastes;
+    renderCastes();
+  </script>
+</body>
+</html>

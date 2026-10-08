@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n-title="myAccountTitle">मेरा प्रोफाइल | उत्तरांचल विवाह मंच</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&family=Noto+Sans:wght@400;600;700&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=22">
+</head>
+<body data-page="browse">
+  <div id="app-header"></div>
+  <section class="page-hero">
+    <div class="container">
+      <div class="breadcrumbs" data-i18n="crumbAccount">होम / मेरा प्रोफाइल</div>
+      <h1 data-i18n="accountH1">मेरा प्रोफाइल</h1>
+      <p data-i18n="accountLead">यह आपका दर्ज बायोडाटा है। मैच देखने के लिए माय मैचेस खोलें।</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container" id="accountBox"></div>
+  </section>
+  <div id="app-footer"></div>
+   <script src="js/i18n.js?v=22"></script>
+   <script src="js/profiles.js?v=22"></script>
+   <script src="js/app.js?v=22"></script>
+  <script>
+    const user = currentUser();
+    if (!user) location.href = "login.html";
+    const p = PROFILES.find((x) => x.id === user.id) || user;
+    function renderAccount() {
+      document.getElementById("accountBox").innerHTML = `
+        <div class="profile-hero">
+          <aside class="profile-aside">
+            <img class="avatar-img" src="${p.photo}" alt="${p.name}">
+            <span class="badge gold" style="margin-top:14px">${p.id}</span>
+            <h1 style="margin:12px 0 6px">${p.name}</h1>
+            <p>${communityLabel(p.community)} · ${genderLabel(p.gender)}</p>
+            <p style="margin-top:12px">${p.city} · ${p.native}</p>
+            <a class="btn btn-primary" href="my-matches.html" style="margin-top:22px;width:100%">${t("viewMatches")}</a>
+          </aside>
+          <div style="padding:24px">
+            <div class="notice">${t("editNote")}</div>
+            <div class="detail-grid">
+              <div><span>${t("dob")}</span><b>${p.dob}</b></div>
+              <div><span>${t("age")}</span><b>${p.age} ${t("years")}</b></div>
+              <div><span>${t("height")}</span><b>${p.height}</b></div>
+              <div><span>${t("region")}</span><b>${p.region === "kumaoni" ? t("kumaoni") : t("garhwali")}</b></div>
+              <div><span>${t("caste")}</span><b>${p.caste}</b></div>
+              <div><span>${t("gotra")}</span><b>${p.gotra}</b></div>
+              <div><span>${t("education")}</span><b>${p.education}</b></div>
+              <div><span>${t("job")}</span><b>${p.job}</b></div>
+              <div><span>${t("salary")}</span><b>${p.salary}</b></div>
+              <div><span>${t("manglik")}</span><b>${p.manglik}</b></div>
+              <div><span>${t("father")}</span><b>${p.father}</b></div>
+              <div><span>${t("mother")}</span><b>${p.mother}</b></div>
+              <div><span>${t("addressNow")}</span><b>${p.presentAddress}</b></div>
+              <div><span>${t("village")}</span><b>${p.village}</b></div>
+              <div><span>${t("district")}</span><b>${p.district}</b></div>
+              <div><span>${t("native")}</span><b>${p.native}</b></div>
+              <div><span>${t("phone")}</span><b>${p.phone || "-"}</b></div>
+            </div>
+          </div>
+        </div>`;
+    }
+    window.onLangChange = renderAccount;
+    renderAccount();
+  </script>
+</body>
+</html>
