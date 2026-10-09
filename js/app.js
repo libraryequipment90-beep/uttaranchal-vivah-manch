@@ -18,15 +18,23 @@ function headerHTML(active) {
         ${item("stories.html", "navStories", "stories")}
         ${item("membership.html", "navMembership", "membership")}
         ${item("communities.html", "navCastes", "castes")}
-        ${item("contact.html", "navContact", "contact")}
-      </ul>
+         ${item("contact.html", "navContact", "contact")}
+         ${user ? `
+           <li class="nav-mobile-extra"><a href="account.html" data-i18n="myProfile">${t("myProfile")}</a></li>
+           <li class="nav-mobile-extra"><a href="my-matches.html" data-i18n="myMatches">${t("myMatches")}</a></li>
+           <li class="nav-mobile-extra"><button type="button" id="logoutBtnMobile" data-i18n="logout">${t("logout")}</button></li>
+         ` : `
+           <li class="nav-mobile-extra"><a href="login.html" data-i18n="login">${t("login")}</a></li>
+           <li class="nav-mobile-extra"><a href="register.html" data-i18n="registerFree">${t("registerFree")}</a></li>
+         `}
+       </ul>
       <div class="nav-cta">
         <div class="lang-switch" role="group" aria-label="Language">
           <button type="button" class="lang-btn" data-lang="hi">हिन्दी</button>
           <button type="button" class="lang-btn" data-lang="en">EN</button>
         </div>
         ${user ? `
-          <div class="user-menu" id="userMenu">
+          <div class="user-menu hide-sm" id="userMenu">
             <button type="button" class="user-menu-btn" id="userMenuBtn">
               <img src="${user.photo || ""}" alt="">
               <span>${user.name.split(" ")[0]}</span>
@@ -39,10 +47,10 @@ function headerHTML(active) {
             </div>
           </div>
         ` : `
-           <a class="btn btn-ghost" href="login.html" data-i18n="login">${t("login")}</a>
+           <a class="btn btn-ghost hide-sm" href="login.html" data-i18n="login">${t("login")}</a>
            <a class="btn btn-primary hide-sm" href="register.html" data-i18n="registerFree">${t("registerFree")}</a>
         `}
-        <button class="menu-toggle" id="menuBtn" aria-label="Menu">☰</button>
+        <button type="button" class="menu-toggle" id="menuBtn" aria-label="Menu" aria-expanded="false">☰</button>
       </div>
     </div>
   </header>`;
@@ -140,7 +148,30 @@ document.addEventListener("DOMContentLoaded", () => {
   if (foot) foot.innerHTML = footerHTML();
   const nav = document.getElementById("nav");
   const btn = document.getElementById("menuBtn");
-  if (btn && nav) btn.addEventListener("click", () => nav.classList.toggle("open"));
+  const closeNav = () => {
+    if (!nav) return;
+    nav.classList.remove("open");
+    if (btn) {
+      btn.setAttribute("aria-expanded", "false");
+      btn.textContent = "☰";
+    }
+  };
+  const openNav = () => {
+    nav.classList.add("open");
+    btn.setAttribute("aria-expanded", "true");
+    btn.textContent = "✕";
+  };
+  if (btn && nav) {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (nav.classList.contains("open")) closeNav();
+      else openNav();
+    });
+    document.addEventListener("click", (e) => {
+      if (!nav.contains(e.target)) closeNav();
+    });
+    nav.querySelectorAll(".nav-links a").forEach((a) => a.addEventListener("click", closeNav));
+  }
   document.querySelectorAll(".lang-btn").forEach((b) => {
     b.addEventListener("click", () => setLang(b.dataset.lang));
   });
@@ -153,13 +184,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     document.addEventListener("click", () => userMenu.classList.remove("open"));
   }
+  const doLogout = () => {
+    logoutUser();
+    location.href = "index.html";
+  };
   const logoutBtn = document.getElementById("logoutBtn");
-  if (logoutBtn) {
-    logoutBtn.addEventListener("click", () => {
-      logoutUser();
-      location.href = "index.html";
-    });
-  }
+  const logoutBtnMobile = document.getElementById("logoutBtnMobile");
+  if (logoutBtn) logoutBtn.addEventListener("click", doLogout);
+  if (logoutBtnMobile) logoutBtnMobile.addEventListener("click", doLogout);
   const logged = !!currentUser();
   document.querySelectorAll(".guest-only").forEach((el) => { el.style.display = logged ? "none" : ""; });
   document.querySelectorAll(".user-only").forEach((el) => { el.style.display = logged ? "" : "none"; });
